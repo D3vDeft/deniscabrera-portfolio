@@ -1,6 +1,6 @@
 <template>
   <section
-    class="bg-black w-full min-h-screen flex items-center justify-center py-16 px-4 sm:px-6 md:px-8 lg:px-12 pt-50"
+    class="bg-black w-full min-h-screen flex items-start justify-center pt-16 lg:pt-24 pb-16 px-4 sm:px-6 md:px-8 lg:px-12"
   >
     <div class="w-full max-w-7xl">
       <h2

@@ -13,7 +13,7 @@
     <Transition name="toast">
       <div
         v-if="showScrollAlert"
-        class="toast-alert absolute top-8 left-1/2 -translate-x-1/2 z-10 bg-black px-7 py-3 whitespace-nowrap"
+        class="toast-alert absolute top-8 left-1/2 -translate-x-1/2 z-10 bg-black px-5 py-3 max-w-[90vw] text-center"
       >
         <p class="text-white italic text-sm sm:text-base tracking-wide">
           La paciencia es una virtud de la cual algunos deciden prescindir.

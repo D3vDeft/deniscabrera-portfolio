@@ -3,10 +3,10 @@
     class="border border-gray-400/20 w-full max-w-5xl flex flex-col md:flex-row min-h-0 md:h-150"
   >
     <!-- Imagen: banner superior en móvil, columna izquierda en desktop -->
-    <div class="w-full h-56 sm:h-72 md:w-auto md:h-auto md:flex-1 flex-shrink-0">
+    <div class="w-full h-80 sm:h-96 md:w-auto md:h-auto md:flex-1 flex-shrink-0 overflow-hidden">
       <img
         src="/public/Portfolio_IMG.jpg"
-        class="h-full w-full object-cover object-top md:object-center"
+        class="h-full w-full object-cover object-[center_35%] md:object-center"
       />
     </div>
 
