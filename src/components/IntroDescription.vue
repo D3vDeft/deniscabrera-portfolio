@@ -10,6 +10,17 @@
         <span class="text-yellow-400 font-bold not-italic">{{ userOccupation }}</span>
       </h2>
     </div>
+    <Transition name="toast">
+      <div
+        v-if="showScrollAlert"
+        class="toast-alert absolute top-8 left-1/2 -translate-x-1/2 z-10 bg-black px-7 py-3 whitespace-nowrap"
+      >
+        <p class="text-white italic text-sm sm:text-base tracking-wide">
+          La paciencia es una virtud de la cual algunos deciden prescindir.
+        </p>
+      </div>
+    </Transition>
+
     <Transition name="fade">
       <button
         @click="show"
@@ -47,19 +58,14 @@ const { displayedText: userOccupation, startTyping: startOccupation } = useTypin
 
 const finish = ref(false);
 const atTop = ref(true);
+const showScrollAlert = ref(false);
+let scrollAttempts = 0;
+let alertTimeout: ReturnType<typeof setTimeout> | null = null;
 const emit = defineEmits<{ showDescription: [show: boolean] }>();
 
 const onScroll = () => {
   atTop.value = window.scrollY === 0;
 };
-
-onMounted(async () => {
-  window.addEventListener('scroll', onScroll);
-  await startFullName();
-  await startTitle();
-  await startOccupation();
-  finish.value = true;
-});
 
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll);
@@ -71,6 +77,63 @@ const show = () => {
 };
 
 const onWheel = (e: WheelEvent) => {
-  if (e.deltaY > 0) show();
+  if (e.deltaY > 0) {
+    if (!finish.value) {
+      scrollAttempts++;
+      if (scrollAttempts >= 50) {
+        scrollAttempts = 0;
+        showScrollAlert.value = true;
+        if (alertTimeout) clearTimeout(alertTimeout);
+        alertTimeout = setTimeout(() => {
+          showScrollAlert.value = false;
+        }, 2500);
+      }
+    } else {
+      show();
+    }
+  }
 };
+
+onMounted(async () => {
+  window.addEventListener('scroll', onScroll);
+  // handleScrollBehavior();
+  await startFullName();
+  await startTitle();
+  await startOccupation();
+  finish.value = true;
+});
 </script>
+
+<style scoped>
+.toast-alert {
+  border: 1px solid rgba(250, 204, 21, 0.2);
+  border-left: 2px solid rgba(250, 204, 21, 0.7);
+  box-shadow:
+    0 0 40px rgba(250, 204, 21, 0.05),
+    0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.toast-enter-active {
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.toast-leave-active {
+  transition:
+    opacity 0.3s cubic-bezier(0.55, 0, 1, 0.45),
+    transform 0.3s cubic-bezier(0.55, 0, 1, 0.45);
+}
+.toast-enter-from {
+  opacity: 0;
+  transform: translateY(-14px) scale(0.95);
+}
+.toast-leave-to {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.97);
+}
+.toast-enter-to,
+.toast-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+</style>

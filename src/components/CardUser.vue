@@ -2,9 +2,12 @@
   <article
     class="border border-gray-400/20 w-full max-w-5xl flex flex-col md:flex-row min-h-0 md:h-150"
   >
-    <!-- Columna Izquierda - Imagen (oculta en móvil) -->
-    <div class="hidden md:block md:flex-1">
-      <img src="/public/Portfolio_IMG.jpg" class="h-full w-full object-cover" />
+    <!-- Imagen: banner superior en móvil, columna izquierda en desktop -->
+    <div class="w-full h-56 sm:h-72 md:w-auto md:h-auto md:flex-1 flex-shrink-0">
+      <img
+        src="/public/Portfolio_IMG.jpg"
+        class="h-full w-full object-cover object-top md:object-center"
+      />
     </div>
 
     <!-- Columna Derecha - Contenido -->
@@ -21,18 +24,48 @@
           Mi pasión por la tecnología me lleva a desarrollar soluciones creativas y completas,
           comenzando con el diseño de las funcionalidades de la aplicación, y junto a mi stack de
           habilidades, desde backend con
-          <span class="text-yellow-400 font-bold">Java</span> y
-          <span class="text-yellow-400 font-bold">Spring Boot</span> hasta interfaces web
-          <span class="text-yellow-400 font-bold">(UI/UX)</span> con
-          <span class="text-yellow-400 font-bold">Angular / Vue</span> y
-          <span class="text-yellow-400 font-bold">TypeScript</span>. El trabajo con
-          <span class="text-yellow-400 font-bold">APIs REST</span>, las buenas prácticas como la
-          refactorización del código, los
-          <span class="text-yellow-400 font-bold">Pattern Design</span> y la metodología
-          <span class="text-yellow-400 font-bold">TDD</span> son parte de mi forma de desarrollar.
-          El uso de <span class="text-yellow-400 font-bold">Linux</span> refleja mi compromiso con
-          las buenas prácticas <span class="text-yellow-400 font-bold">KISS</span> y las prácticas
-          <span class="text-yellow-400 font-bold">DevOps</span>.
+          <span
+            title="Lenguaje de programación creado por James Gosling"
+            class="text-yellow-400 font-bold"
+            >Java</span
+          >
+          y
+          <span title="Framework backend basado en Java" class="text-yellow-400 font-bold"
+            >Spring Boot</span
+          >
+          hasta interfaces web
+          <span title="User Interface/User Experience" class="text-yellow-400 font-bold"
+            >(UI/UX)</span
+          >
+          con
+          <span title="Framework's de frontend" class="text-yellow-400 font-bold"
+            >Angular / Vue</span
+          >
+          y
+          <span
+            title="Lenguaje de programación tipado y/o superset de javascript"
+            class="text-yellow-400 font-bold"
+            >TypeScript</span
+          >. El trabajo con
+          <span
+            title="Interfaces de trasferencia de estado representacional"
+            class="text-yellow-400 font-bold"
+            >APIs REST</span
+          >, las buenas prácticas como la refactorización del código, los
+          <span
+            title="Libro que contiene conjunto de patrones para resolver uno o varios problema de forma optima escrito por Erich Gamma"
+            class="text-yellow-400 font-bold"
+            >Pattern Design</span
+          >
+          y la metodología
+          <span title="Test Driven Development" class="text-yellow-400 font-bold">TDD</span> son
+          parte de mi forma de desarrollar. El uso de
+          <span title="Kernel desarrollador por Linus Torvald" class="text-yellow-400 font-bold"
+            >Linux</span
+          >
+          refleja mi compromiso con las buenas prácticas
+          <span title="Keep it Short and Simple" class="text-yellow-400 font-bold">KISS</span> y
+          <span title="Developer operations" class="text-yellow-400 font-bold">DevOps</span>.
         </p>
       </div>
 
@@ -58,18 +91,18 @@
             <span>Correo</span>
           </a>
           <a
-            href="https://wa.me/+34629200770"
+            href="https://www.linkedin.com/in/devdeft/"
             target="_blank"
             rel="noopener noreferrer"
-            class="flex-1 h-9 flex items-center justify-center gap-2 border border-emerald-600/50 text-amber-50 text-sm font-bold hover:border-emerald-400 hover:text-emerald-300 transition-colors duration-200"
+            class="flex-1 h-9 flex items-center justify-center gap-2 border border-cyan-400/50 text-amber-50 text-sm font-bold hover:border-cyan-300 hover:text-cyan-200 transition-colors duration-200"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 640 640">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height="18">
               <path
                 fill="currentColor"
-                d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z"
+                d="M196.3 512L103.4 512L103.4 212.9L196.3 212.9L196.3 512zM149.8 172.1C120.1 172.1 96 147.5 96 117.8C96 103.5 101.7 89.9 111.8 79.8C121.9 69.7 135.6 64 149.8 64C164 64 177.7 69.7 187.8 79.8C197.9 89.9 203.6 103.6 203.6 117.8C203.6 147.5 179.5 172.1 149.8 172.1zM543.9 512L451.2 512L451.2 366.4C451.2 331.7 450.5 287.2 402.9 287.2C354.6 287.2 347.2 324.9 347.2 363.9L347.2 512L254.4 512L254.4 212.9L343.5 212.9L343.5 253.7L344.8 253.7C357.2 230.2 387.5 205.4 432.7 205.4C526.7 205.4 544 267.3 544 347.7L544 512L543.9 512z"
               />
             </svg>
-            <span>Whatsapp</span>
+            <span>LinkedIn</span>
           </a>
           <a
             href="https://github.com/D3vDeft"
