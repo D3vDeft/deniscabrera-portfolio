@@ -1,16 +1,20 @@
 <template>
-  <article class="border border-gray-400/20 h-150 w-300 flex">
-    <!-- Columna Izquierda - Imagen -->
-    <div class="flex-1">
+  <article
+    class="border border-gray-400/20 w-full max-w-5xl flex flex-col md:flex-row min-h-0 md:h-150"
+  >
+    <!-- Columna Izquierda - Imagen (oculta en móvil) -->
+    <div class="hidden md:block md:flex-1">
       <img src="/public/Portfolio_IMG.jpg" class="h-full w-full object-cover" />
     </div>
 
     <!-- Columna Derecha - Contenido -->
-    <div class="flex-1 flex flex-col justify-between py-10 pl-10 pr-8">
+    <div class="flex-1 flex flex-col justify-between py-8 px-6 md:py-10 md:pl-10 md:pr-8">
       <!-- Fila 1 - About me -->
       <div class="flex flex-col gap-4">
         <div>
-          <h1 class="text-emerald-600 text-4xl font-serif italic tracking-wide">Acerca de mí</h1>
+          <h1 class="text-emerald-600 text-2xl md:text-4xl font-serif italic tracking-wide">
+            Acerca de mí
+          </h1>
           <div class="h-px w-32 bg-emerald-400/50 mt-2"></div>
         </div>
         <p class="text-base text-amber-50/90 leading-relaxed">
@@ -35,10 +39,12 @@
       <!-- Fila 2 - Contacto -->
       <div class="flex flex-col gap-4">
         <div>
-          <h1 class="text-cyan-600 text-4xl font-serif italic tracking-wide">Contacto</h1>
+          <h1 class="text-cyan-600 text-2xl md:text-4xl font-serif italic tracking-wide">
+            Contacto
+          </h1>
           <div class="h-px w-28 bg-cyan-400/50 mt-2"></div>
         </div>
-        <div class="flex gap-3">
+        <div class="flex flex-col sm:flex-row gap-2">
           <a
             href="mailto:deniscarloscabrera@outlook.es"
             class="flex-1 h-9 flex items-center justify-center gap-2 border border-blue-500/50 text-amber-50 text-sm font-bold hover:border-blue-400 hover:text-blue-300 transition-colors duration-200"
