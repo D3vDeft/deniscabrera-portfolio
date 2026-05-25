@@ -26,14 +26,6 @@ import UserExperience from './UserExperience.vue';
 const nextPage = ref(false);
 const wheelDetected = ref(false);
 
-const goToEnd = () => {
-  nextPage.value = false;
-  window.scrollBy({
-    top: window.innerHeight,
-    behavior: 'smooth',
-  });
-};
-
 const onWheel = (e: WheelEvent) => {
   if (e.deltaY > 0) {
     wheelDetected.value = true;
@@ -45,6 +37,14 @@ const onWheel = (e: WheelEvent) => {
     wheelDetected.value = true;
     goToTop();
   }
+};
+
+const goToEnd = () => {
+  nextPage.value = false;
+  window.scrollBy({
+    top: window.innerHeight,
+    behavior: 'smooth',
+  });
 };
 
 const goToTop = () => {

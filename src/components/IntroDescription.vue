@@ -1,13 +1,13 @@
 <template>
   <div class="relative bg-black w-full h-screen flex items-center justify-center" @wheel="onWheel">
     <div class="flex flex-col items-center gap-6 px-6 text-center">
-      <h1 class="text-5xl sm:text-6xl md:text-8xl text-amber-50 font-serif italic tracking-wide">
+      <h1 class="text-5xl sm:text-6xl md:text-8xl text-amber-50 font-serif tracking-wide">
         {{ userFullName }}
       </h1>
       <div class="h-px w-48 bg-yellow-400/50"></div>
-      <h2 class="text-2xl sm:text-3xl md:text-4xl text-amber-50 font-serif">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl text-amber-50">
         {{ userTitle }}
-        <span class="text-yellow-400 font-bold not-italic">{{ userOccupation }}</span>
+        <span class="text-yellow-400 font-bold italic">{{ userOccupation }}</span>
       </h2>
     </div>
     <Transition name="toast">

@@ -101,6 +101,24 @@
             </div>
           </div>
 
+          <!-- DataBases -->
+          <div class="border-l-2 border-gray-600 pl-6 md:pl-8">
+            <h3 class="text-gray-600 text-xl md:text-2xl lg:text-4xl font-serif mb-3 md:mb-4">
+              DataBases
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                v-for="skill in databaseSkills"
+                :key="skill.skill"
+                class="px-2 md:px-3 py-1 text-xs md:text-sm lg:text-base text-amber-50 border border-gray-600/50 hover:border-gray-400 hover:text-gray-300 transition-colors duration-200 cursor-default"
+                @mouseenter="setActive(skill, 'gray')"
+                @mouseleave="clearActive"
+              >
+                {{ skill.skill }}
+              </span>
+            </div>
+          </div>
+
           <!-- DevOps & Prácticas -->
           <div class="border-l-2 border-yellow-400 pl-6 md:pl-8">
             <h3 class="text-yellow-400 text-xl md:text-2xl lg:text-4xl font-serif mb-3 md:mb-4">
@@ -151,7 +169,7 @@ interface Skill {
   description: string;
 }
 
-type SkillCategory = 'cyan' | 'emerald' | 'yellow';
+type SkillCategory = 'cyan' | 'emerald' | 'yellow' | 'gray';
 
 interface ActiveSkill extends Skill {
   borderColor: string;
@@ -169,6 +187,11 @@ const categoryStyles: Record<SkillCategory, Omit<ActiveSkill, keyof Skill>> = {
     borderColor: 'border-emerald-600',
     textColor: 'text-emerald-400',
     dividerBg: 'bg-emerald-600/60',
+  },
+  gray: {
+    borderColor: 'border-gray-600',
+    textColor: 'text-gray-400',
+    dividerBg: 'bg-gray-400/60',
   },
   yellow: {
     borderColor: 'border-yellow-400',
@@ -219,7 +242,7 @@ const backendSkills: Skill[] = [
   {
     skill: 'Java (17 / 21)',
     description:
-      'Lenguaje orientado a objetos de alto rendimiento con versiones LTS estables y características modernas como Records, Sealed Classes y Virtual Threads.',
+      'Lenguaje de programación multiparadigma, creado en el 1991 por James Gosling en las oficinas de Standford Univerity Network Microsystems, bajo el lema de "Write once, run anywhere", fue un lenguaje que evolicionó rapidamente en el mercado, integrandose en sistemas bancarios por su escalabilidad, estabilidad, seguridad y portabilidad.',
   },
   {
     skill: 'Spring Boot',
@@ -229,23 +252,31 @@ const backendSkills: Skill[] = [
   {
     skill: 'JUnit',
     description:
-      'Framework estándar de testing en Java aplicado bajo metodología TDD, garantizando cobertura y calidad desde la fase de diseño.',
+      'Framework estándar y precursor del testing, desarrollado para Java por Erich Gamma y Kent Beck, los cuales buscaban garantizar la cobertura y calidad desde la fase de diseño siguiendo la metodologia TDD.',
   },
   {
-    skill: 'REST API',
+    skill: 'REST',
     description:
-      'Diseño e implementación de APIs RESTful con contratos claros, versionado semántico y documentación con OpenAPI / Swagger.',
+      'Representational State Transfer, es una arquitectura de software que define el diseño y funcionamiento de las comunicaciones entre cliente y servidor',
+  },
+  {
+    skill: 'API',
+    description:
+      'Application Programming Interface, contrato que abstrae del funcionamiento interno de una aplicación, es el puente que une al cliente con el servidor.',
   },
   {
     skill: 'JWT',
     description:
-      'Tokens compactos y firmados para autenticación stateless en sistemas distribuidos, con control de expiración y roles.',
+      'JSON Web Tokens, compactos y firmados para autenticación stateless en sistemas distribuidos, con control de expiración y roles.',
   },
   {
     skill: 'OAuth',
     description:
       'Protocolo estándar de autorización delegada que permite integraciones seguras entre servicios sin exponer credenciales.',
   },
+];
+
+const databaseSkills: Skill[] = [
   {
     skill: 'MySQL',
     description:
@@ -259,12 +290,16 @@ const backendSkills: Skill[] = [
   {
     skill: 'SQL',
     description:
-      'Dominio del lenguaje estándar para consulta, manipulación y administración de datos en motores relacionales.',
+      'Structured Query Language, lenguaje estandar para la gestion y consultas de bases de datos relacionales CRUD(Crate Read Update Delete).',
   },
   {
     skill: 'Oracle',
     description:
       'Sistema de base de datos empresarial de alto rendimiento con soporte para grandes volúmenes de datos y PL/SQL.',
+  },
+  {
+    skill: 'HDFS',
+    description: 'Hadoop Distributed File System es un sistema de gestion de datos distribuidos.',
   },
 ];
 
