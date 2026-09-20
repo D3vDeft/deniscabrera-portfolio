@@ -1,379 +1,102 @@
 <template>
-  <section
-    class="bg-black w-full min-h-screen flex items-start justify-center pt-16 lg:pt-24 pb-16 px-4 sm:px-6 md:px-8 lg:px-12"
-  >
-    <div class="w-full max-w-7xl">
-      <h2
-        class="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-amber-50 font-serif italic mb-8 md:mb-12 lg:mb-20"
-      >
-        Experiencia & <span class="text-yellow-400 font-bold not-italic">Skills</span>
-      </h2>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-16">
-        <!-- Experiencia / Skill Detail -->
-        <div
-          class="border-l-2 pl-6 md:pl-8 transition-colors duration-300"
-          :class="activeSkill ? activeSkill.borderColor : 'border-white'"
-        >
-          <div class="panel-stack">
-            <!-- Experience: siempre en DOM, determina la altura del contenedor -->
-            <div
-              class="panel-item"
-              :class="{ 'panel-hidden': activeSkill !== null }"
-              :aria-hidden="activeSkill !== null"
-            >
-              <h3 class="text-white text-xl md:text-2xl lg:text-4xl font-serif mb-6 md:mb-8">
-                Experiencia
-              </h3>
-              <ul class="space-y-8 md:space-y-10">
-                <li v-for="exp in experience" :key="exp.role">
-                  <p class="text-amber-50 text-base md:text-lg lg:text-2xl font-bold">
-                    {{ exp.role }}
-                  </p>
-                  <p class="text-yellow-400 text-xs md:text-sm lg:text-xl mt-1">
-                    {{ exp.company }} · {{ exp.period }}
-                  </p>
-                  <p
-                    class="text-amber-50/70 mt-2 md:mt-3 text-sm md:text-base leading-relaxed whitespace-pre-line"
-                  >
-                    {{ exp.description }}
-                  </p>
-                </li>
-              </ul>
-            </div>
-            <!-- Skill detail: apilado encima via grid-area, nunca afecta la altura -->
-            <div
-              class="panel-item"
-              :class="{ 'panel-hidden': activeSkill === null }"
-              :aria-hidden="activeSkill === null"
-            >
-              <template v-if="activeSkill">
-                <h3
-                  class="text-xl md:text-2xl lg:text-4xl font-serif italic mb-3"
-                  :class="activeSkill.textColor"
-                >
-                  {{ activeSkill.skill }}
-                </h3>
-                <div class="h-px w-10 mb-6" :class="activeSkill.dividerBg"></div>
-                <p class="text-amber-50/80 text-sm md:text-base lg:text-lg leading-relaxed">
-                  {{ activeSkill.description }}
-                </p>
-              </template>
-            </div>
+  <div class="content-sections section-wrap">
+    <section id="experiencia" class="content-section">
+      <div class="section-label">02 / Experiencia</div>
+      <div class="experience-list">
+        <article v-for="(item, index) in experience" :key="item.company" class="experience-item reveal" :style="{ '--delay': `${index * 100}ms` }">
+          <div class="experience-date">{{ item.period }}</div>
+          <div>
+            <h3>{{ item.role }}</h3>
+            <p class="experience-company">{{ item.company }}</p>
+            <ul>
+              <li v-for="detail in item.details" :key="detail">{{ detail }}</li>
+            </ul>
           </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="habilidades" class="content-section skills-section">
+      <div class="section-label">03 / Habilidades</div>
+      <div class="skills-layout">
+        <div>
+          <h2>Un stack pensado para construir.</h2>
+          <p class="muted">Tecnologías y prácticas que forman parte de mi día a día.</p>
         </div>
-
-        <!-- Skills -->
-        <div class="flex flex-col gap-6 md:gap-8 lg:gap-12">
-          <!-- Frontend -->
-          <div class="border-l-2 border-cyan-600 pl-6 md:pl-8">
-            <h3 class="text-cyan-600 text-xl md:text-2xl lg:text-4xl font-serif mb-3 md:mb-4">
-              Frontend
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                v-for="skill in frontendSkills"
-                :key="skill.skill"
-                class="px-2 md:px-3 py-1 text-xs md:text-sm lg:text-base text-amber-50 border border-cyan-600/50 hover:border-cyan-400 hover:text-cyan-300 transition-colors duration-200 cursor-default"
-                @mouseenter="setActive(skill, 'cyan')"
-                @mouseleave="clearActive"
-              >
-                {{ skill.skill }}
-              </span>
-            </div>
-          </div>
-
-          <!-- Backend -->
-          <div class="border-l-2 border-emerald-600 pl-6 md:pl-8">
-            <h3 class="text-emerald-600 text-xl md:text-2xl lg:text-4xl font-serif mb-3 md:mb-4">
-              Backend
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                v-for="skill in backendSkills"
-                :key="skill.skill"
-                class="px-2 md:px-3 py-1 text-xs md:text-sm lg:text-base text-amber-50 border border-emerald-600/50 hover:border-emerald-400 hover:text-emerald-300 transition-colors duration-200 cursor-default"
-                @mouseenter="setActive(skill, 'emerald')"
-                @mouseleave="clearActive"
-              >
-                {{ skill.skill }}
-              </span>
-            </div>
-          </div>
-
-          <!-- DataBases -->
-          <div class="border-l-2 border-gray-600 pl-6 md:pl-8">
-            <h3 class="text-gray-600 text-xl md:text-2xl lg:text-4xl font-serif mb-3 md:mb-4">
-              DataBases
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                v-for="skill in databaseSkills"
-                :key="skill.skill"
-                class="px-2 md:px-3 py-1 text-xs md:text-sm lg:text-base text-amber-50 border border-gray-600/50 hover:border-gray-400 hover:text-gray-300 transition-colors duration-200 cursor-default"
-                @mouseenter="setActive(skill, 'gray')"
-                @mouseleave="clearActive"
-              >
-                {{ skill.skill }}
-              </span>
-            </div>
-          </div>
-
-          <!-- DevOps & Prácticas -->
-          <div class="border-l-2 border-yellow-400 pl-6 md:pl-8">
-            <h3 class="text-yellow-400 text-xl md:text-2xl lg:text-4xl font-serif mb-3 md:mb-4">
-              DevOps & Prácticas
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                v-for="skill in devopsSkills"
-                :key="skill.skill"
-                class="px-2 md:px-3 py-1 text-xs md:text-sm lg:text-base text-amber-50 border border-yellow-400/50 hover:border-yellow-300 hover:text-yellow-300 transition-colors duration-200 cursor-default"
-                @mouseenter="setActive(skill, 'yellow')"
-                @mouseleave="clearActive"
-              >
-                {{ skill.skill }}
-              </span>
+        <div class="skill-groups">
+          <div v-for="group in skillGroups" :key="group.name" class="skill-group">
+            <h3>{{ group.name }}</h3>
+            <div class="skill-list">
+              <span v-for="skill in group.skills" :key="skill">{{ skill }}</span>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section id="formacion" class="content-section education-section">
+      <div class="section-label">04 / Formación</div>
+      <div class="education-list">
+        <article v-for="item in education" :key="item.title" class="education-item">
+          <div class="education-year">{{ item.period }}</div>
+          <div>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.place }}</p>
+          </div>
+        </article>
+      </div>
+      <div class="personal-details">
+        <div><strong>Idiomas</strong><span>Español (Nativo) · Inglés (B2)</span></div>
+        <div><strong>Aptitudes</strong><span>Autodidacta · Empático · Pensamiento crítico · Adaptabilidad</span></div>
+        <div><strong>Otros datos</strong><span>Garantía Juvenil</span></div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-
 const experience = [
   {
-    role: 'Desarrollador de software',
-    company: 'Metrica Consulting',
-    period: '2025 – 2026',
-    description: `Desarrollo colaborativo de una aplicación basada en microservicios en un equipo de 4 personas.
-Gestión y administración de bases de datos relacionales con MySQL.
-Integración de JWT (JSON Web Tokens) para control de acceso y seguridad.
-Desarrollo de módulo frontend con Angular y TypeScript para la visualización de detalles de usuario, historial de rutas y gasolineras guardadas, con integración de la API de Google Maps.
-Desarrollo ágil bajo metodología Scrum, aplicando TDD, control de versiones con Git y Git Flow, y patrones de diseño como Strategy, Factory, Builder y Chain of Responsibility.`,
+    role: 'Desarrollador Full Stack — Freelance',
+    company: 'Clientes reales · Madrid',
+    period: '06/2026 — Actualidad',
+    details: [
+      'Desarrollo de soluciones web completas, desde el diseño hasta el despliegue.',
+      'Web para un estudio de tatuajes y piercings.',
+      'E-commerce B2C y ERP integrado para productos, stock, pedidos y clientes.',
+    ],
   },
   {
-    role: 'Técnico Informático',
-    company: 'Hospital Naval',
-    period: '2018 – 2022',
-    description: 'Gestión de servicios hospitalarios y mejora de rendimiento del software.',
+    role: 'Desarrollador Full Stack',
+    company: 'METRICA Consulting',
+    period: '09/2025 — 05/2026',
+    details: [
+      'Aplicación para automatizar la evaluación de vehículos adquiridos en subastas.',
+      'Participación en el desarrollo y diseño bajo metodología Scrum.',
+      'Automatización de procesos para agilizar la toma de decisiones del equipo de compras.',
+    ],
+  },
+  {
+    role: 'Desarrollador Backend',
+    company: 'Calles Inteligentes',
+    period: '01/2025 — 05/2025',
+    details: [
+      'Sistema para consultar la disponibilidad de plazas de aparcamiento en tiempo real.',
+      'Implementación de la comunicación entre los sensores y la aplicación.',
+    ],
   },
 ];
 
-interface Skill {
-  skill: string;
-  description: string;
-}
-
-type SkillCategory = 'cyan' | 'emerald' | 'yellow' | 'gray';
-
-interface ActiveSkill extends Skill {
-  borderColor: string;
-  textColor: string;
-  dividerBg: string;
-}
-
-const categoryStyles: Record<SkillCategory, Omit<ActiveSkill, keyof Skill>> = {
-  cyan: {
-    borderColor: 'border-cyan-600',
-    textColor: 'text-cyan-400',
-    dividerBg: 'bg-cyan-600/60',
-  },
-  emerald: {
-    borderColor: 'border-emerald-600',
-    textColor: 'text-emerald-400',
-    dividerBg: 'bg-emerald-600/60',
-  },
-  gray: {
-    borderColor: 'border-gray-600',
-    textColor: 'text-gray-400',
-    dividerBg: 'bg-gray-400/60',
-  },
-  yellow: {
-    borderColor: 'border-yellow-400',
-    textColor: 'text-yellow-400',
-    dividerBg: 'bg-yellow-400/60',
-  },
-};
-
-const activeSkill = ref<ActiveSkill | null>(null);
-
-const setActive = (skill: Skill, category: SkillCategory) => {
-  activeSkill.value = { ...skill, ...categoryStyles[category] };
-};
-
-const clearActive = () => {
-  activeSkill.value = null;
-};
-
-const frontendSkills: Skill[] = [
-  {
-    skill: 'Vue 3',
-    description:
-      'Framework progresivo para construir interfaces reactivas con Composition API, ideal para SPAs modernas con un ecosistema ligero y flexible.',
-  },
-  {
-    skill: 'Angular',
-    description:
-      'Framework empresarial de Google con inyección de dependencias, módulos y arquitectura robusta orientada a aplicaciones de gran escala.',
-  },
-  {
-    skill: 'TypeScript',
-    description:
-      'Superset tipado de JavaScript que eleva la calidad del código, facilita el refactoring y detecta errores en tiempo de compilación.',
-  },
-  {
-    skill: 'TailwindCSS',
-    description:
-      'Framework CSS utility-first que permite construir diseños consistentes y responsivos directamente en el HTML sin salir del componente.',
-  },
-  {
-    skill: 'Vitest',
-    description:
-      'Framework de testing ultrarrápido integrado con el ecosistema Vite, compatible con la API de Jest para tests unitarios y de integración.',
-  },
+const skillGroups = [
+  { name: 'Frontend', skills: ['TypeScript', 'Angular', 'Vue', 'React', 'Vitest'] },
+  { name: 'Backend', skills: ['Java 17/21', 'Spring Boot', 'Spring Security', 'REST', 'OpenAPI'] },
+  { name: 'Datos & DevOps', skills: ['PostgreSQL', 'Oracle', 'SQL', 'Docker', 'Azure', 'Debian'] },
+  { name: 'Prácticas', skills: ['TDD', 'Design patterns', 'JUnit', 'Git', 'CI/CD', 'Swagger'] },
 ];
 
-const backendSkills: Skill[] = [
-  {
-    skill: 'Java (17 / 21)',
-    description:
-      'Lenguaje de programación multiparadigma, creado en el 1991 por James Gosling en las oficinas de Standford Univerity Network Microsystems, bajo el lema de "Write once, run anywhere", fue un lenguaje que evolicionó rapidamente en el mercado, integrandose en sistemas bancarios por su escalabilidad, estabilidad, seguridad y portabilidad.',
-  },
-  {
-    skill: 'Spring Boot',
-    description:
-      'Framework que simplifica la creación de microservicios y APIs REST con autoconfiguración, inyección de dependencias y un ecosistema maduro.',
-  },
-  {
-    skill: 'JUnit',
-    description:
-      'Framework estándar y precursor del testing, desarrollado para Java por Erich Gamma y Kent Beck, los cuales buscaban garantizar la cobertura y calidad desde la fase de diseño siguiendo la metodologia TDD.',
-  },
-  {
-    skill: 'REST',
-    description:
-      'Representational State Transfer, es una arquitectura de software que define el diseño y funcionamiento de las comunicaciones entre cliente y servidor',
-  },
-  {
-    skill: 'API',
-    description:
-      'Application Programming Interface, contrato que abstrae del funcionamiento interno de una aplicación, es el puente que une al cliente con el servidor.',
-  },
-  {
-    skill: 'JWT',
-    description:
-      'JSON Web Tokens, compactos y firmados para autenticación stateless en sistemas distribuidos, con control de expiración y roles.',
-  },
-  {
-    skill: 'OAuth',
-    description:
-      'Protocolo estándar de autorización delegada que permite integraciones seguras entre servicios sin exponer credenciales.',
-  },
-];
-
-const databaseSkills: Skill[] = [
-  {
-    skill: 'MySQL',
-    description:
-      'Sistema relacional ampliamente usado en producción, con dominio en modelado, consultas optimizadas e índices.',
-  },
-  {
-    skill: 'PostgreSQL',
-    description:
-      'Base de datos relacional avanzada con soporte JSON, CTEs, procedimientos almacenados y alta fiabilidad en entornos exigentes.',
-  },
-  {
-    skill: 'SQL',
-    description:
-      'Structured Query Language, lenguaje estandar para la gestion y consultas de bases de datos relacionales CRUD(Crate Read Update Delete).',
-  },
-  {
-    skill: 'Oracle',
-    description:
-      'Sistema de base de datos empresarial de alto rendimiento con soporte para grandes volúmenes de datos y PL/SQL.',
-  },
-  {
-    skill: 'HDFS',
-    description: 'Hadoop Distributed File System es un sistema de gestion de datos distribuidos.',
-  },
-];
-
-const devopsSkills: Skill[] = [
-  {
-    skill: 'Linux',
-    description:
-      'Linux es un kernel desarrollado por Linus Torvalds. A menudo es utilizado como una metonimia para referirse a los sistemas operativos de kernel Linux, aunque también es correcto la utilización de GNU/Linux a pesar de que no todos los sistemas utilizan la filosofía GNU, como por ejemplo Android, que sí utiliza el kernel Linux.',
-  },
-  {
-    skill: 'Docker',
-    description:
-      'Contenerización de aplicaciones para garantizar entornos reproducibles y consistentes en cualquier infraestructura, que mejora la velocidad de despliegue ante las VM (Virtual Machines).',
-  },
-  {
-    skill: 'Git',
-    description:
-      'Control de versiones distribuido con dominio de branching, merging, rebasing y resolución de conflictos en equipos, desarrollado por Linus Torvalds.',
-  },
-  {
-    skill: 'GitFlow',
-    description:
-      'Metodología y/o flujo de trabajo en Git estructurado para la gestión ordenada de features, releases y hotfixes en equipos de desarrollo.',
-  },
-  {
-    skill: 'CI/CD',
-    description:
-      'Por sus siglas en inglés CI/CD (Continuous Integration / Continuous Deployment) es la automatización de pipelines de build, test y despliegue para entregas continuas, rápidas y fiables en producción.',
-  },
-  {
-    skill: 'TDD',
-    description:
-      'Test-Driven Development: metodología que se utiliza para garantizar diseño limpio, cobertura real y refactoring seguro, escribiendo los tests antes que el código.',
-  },
-  {
-    skill: 'Pattern Design',
-    description:
-      'Libro escrito por Erich Gamma, Richard Helm, Ralph Johnson y John Vlissides — Addison-Wesley (GoF: Gang of Four). Describe las técnicas para resolver problemas comunes en el desarrollo de software.',
-  },
-  {
-    skill: 'KISS',
-    description:
-      'Keep it Short and Simple es un principio de diseño que prioriza la simplicidad y legibilidad del código, evitando complejidad innecesaria y sobre-ingeniería.',
-  },
-  {
-    skill: 'Postman',
-    description:
-      'Herramienta para diseño, prueba y documentación de APIs REST con colecciones organizadas, variables de entorno y automatización.',
-  },
+const education = [
+  { title: 'Técnico en Desarrollo de Aplicaciones Multiplataforma', place: 'IES Clara del Rey', period: '09/2023 — 06/2026' },
+  { title: 'Técnico en Desarrollo de Aplicaciones Web entorno cliente servidor', place: 'IES Clara del Rey', period: '09/2023 — 06/2026' },
+  { title: 'Curso ORACLE BIG DATA CLOUD INGENIERO · 175h', place: 'C.F.P.E. en Tecnologías de la Información y Comunicaciones', period: '07/2024' },
 ];
 </script>
-
-<style scoped>
-/* Ambos paneles comparten la misma celda del grid.
-   El contenedor siempre mide lo que mide el panel de experiencia
-   (más alto), eliminando cualquier reflow al hacer hover. */
-.panel-stack {
-  display: grid;
-}
-
-.panel-item {
-  grid-area: 1 / 1;
-  transition:
-    opacity 0.35s ease,
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
-}
-
-.panel-hidden {
-  opacity: 0;
-  transform: translateX(28px);
-  pointer-events: none;
-  user-select: none;
-}
-</style>
